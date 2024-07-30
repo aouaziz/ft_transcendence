@@ -147,7 +147,7 @@ header {
 }
 
 .gameArea{
-  margin-top: 18px;
+  margin-top: 96px;
   margin-left: 2px;
   position: absolute;
   width: 600px;
@@ -157,12 +157,13 @@ header {
   border: #111 3px solid; 
   border-radius: 8px;
   backdrop-filter: blur(4px);
-  transform: perspective(1000px) rotateX(33deg) scaleX(0.51) scaleY(0.78) ;
+  transform: perspective(1000px) rotateX(33deg) scaleX(0.61) scaleY(0.94) ;
 }
 .bg {
   position: absolute;
-  height: 1000px;
+  height: 1200px;
   z-index: -1;
+  margin-top: 0;
 }
 .paddle {
   height: 100px;
@@ -205,7 +206,7 @@ header {
 
 .score {
   position: absolute;
-  top :35%;
+  top :41%;
   z-index: 1;
   display: flex;
   width: 60px;
@@ -213,7 +214,7 @@ header {
   justify-content: center;
   align-items: center;
   color: rgba(255,255, 255, 0.3);
-  font-size: 150%;
+  font-size: 200%;
 }
 
 .player1Score {
@@ -226,7 +227,7 @@ header {
 .startText{
   position: absolute;
   margin: 0;
-  top:85%;
+  top:98%;
   left: 50%;
   transform: translate(-50%,-50%);
   text-align: center;
