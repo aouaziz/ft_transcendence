@@ -1,3 +1,10 @@
+html {
+  height: 100%;
+  overflow: hidden;
+  background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+  
+}
+
 * {
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
@@ -9,9 +16,7 @@
 header {
   position: fixed;
   width: 100%;
-  top: 0;
-  right: 0;
-  z-index: 1000;
+  z-index: 1;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -19,34 +24,25 @@ header {
   padding: 28px 12%;
   transition: all 0.5s ease;
 }
-.logo {
+
+.logo-image {
+  margin-top: 5px;
   display: flex;
   align-items: center;
-}
-.logo i {
-  color: #ededed;
-  font-size: 28px;
-  margin-right: 3px;
-}
-.logo-image {
-  margin-top: 18px;
   width: 100px;
 }
 
-.logo span {
-  color: #ededed;
-  font-size: 1.7rem;
-  font-weight: 600;
-}
 .navbar {
   display: flex;
+  margin-top :19px;
 }
+
 .navbar a {
+  margin: 0px 30px;
   color: #ededed;
   font-size: 1.1rem;
   font-weight: 500;
   padding: 5px 0;
-  margin: 0px 30px;
   transition: all 0.5s ease;
 }
 .navbar a:hover {
@@ -65,11 +61,12 @@ header {
   margin-right: 25px;
   margin-left: 10px;
   color: #ededed;
-  font-size: 1.1rem;
-  font-weight: 500;
   transition: all 0.5s ease;
 }
 .user {
+  margin-top: 0px; 
+  font-size: 1.1rem;
+  font-weight: 500;
   display: flex;
   align-items: center;
 }
@@ -87,7 +84,7 @@ header {
   font-size: 35px;
   color: #ededed;
   cursor: pointer;
-  z-index: 10001;
+  z-index: 1;
   display: none;
 }
 @media (max-width: 1280px) {
