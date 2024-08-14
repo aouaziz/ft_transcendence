@@ -4,6 +4,8 @@ html {
   height: 100vh;
   overflow: hidden;
   background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+  /* position: fixed; */
+
 }
 
 header {
@@ -157,7 +159,7 @@ header {
   border: #111 3px solid; 
   border-radius: 8px;
   backdrop-filter: blur(4px);
-  transform: perspective(1000px) rotateX(33deg) scaleX(0.61) scaleY(0.94) ;
+  transform: perspective(1000px) rotateX(26deg) scaleX(0.63) scaleY(0.90) ;
 }
 .bg {
   position: absolute;
