@@ -1,10 +1,3 @@
-let menu = document.querySelector("#menu-icon");
-let navbar = document.querySelector(".navbar");
-menu.onclick = () => {
-  menu.classList.toggle("bx-x");
-  navbar.classList.toggle("open");
-};
-
 // Game events
 
 document.addEventListener("keydown", startGame);
@@ -20,23 +13,27 @@ let payer1 = document.getElementById("player1Score");
 let payer2 = document.getElementById("player2Score");
 
 const accelerationSpeed = 1;
+const maxBallSpeed = 10; 
 const maxSpeed = 5;
-const gameHeight = 400;
-const gameWidth = 600;
+const gameHeight = 600;
+const gameWidth = 1100;
 const ball = document.getElementById("ball");
+
 
 let keysPrassed = {};
 let gameRunning = false;
 let paddle1Speed = 0;
 let paddle2Speed = 0;
-let paddle1Y = 150; //
-let paddle2Y = 150;
-let ballX = 290;
-let ballSpeedX = 2;
-let ballY = 190;
-let ballSpeedY = 2;
+let paddle1Y = 255; //
+let paddle2Y = 255;
+let ballX = 541;
+let ballSpeedX = 4;
+let ballY = 283;
+let ballSpeedY = 4;
 let playr1Score = 0;
 let playr2Score = 0;
+
+
 
 // Start Game
 
@@ -110,53 +107,74 @@ function updatePaddle2() {
 
   paddle2.style.top = paddle2Y + "px";
 }
-
 function updateBall() {
   ballX += ballSpeedX;
   ballY += ballSpeedY;
-  // top and bottom wall condition
+
+  // Top and bottom wall collision
   if (ballY >= gameHeight - ball.clientHeight || ballY <= 0) {
     ballSpeedY = -ballSpeedY;
   }
-  // paddle1 condition
+
+  // Paddle1 collision
   if (
     ballX <= paddle1.clientWidth &&
     ballY >= paddle1Y &&
     ballY <= paddle1Y + paddle1.clientHeight
   ) {
     ballSpeedX = -ballSpeedX;
+    increaseBallSpeed(); // Increase speed on paddle hit
   }
 
-  // paddle2 condition
+  // Paddle2 collision
   if (
     ballX >= gameWidth - paddle2.clientWidth - ball.clientWidth &&
     ballY >= paddle2Y &&
     ballY <= paddle2Y + paddle2.clientHeight
   ) {
     ballSpeedX = -ballSpeedX;
+    increaseBallSpeed(); // Increase speed on paddle hit
   }
-  // left and right wall condition
+
   if (ballX <= 0) {
     playr1Score++;
     updateScore();
     resetBall();
     resetPaddle();
     pauseGame();
-} else if (ballX >= gameWidth - ball.clientWidth) {
+  } else if (ballX >= gameWidth - ball.clientWidth) {
     playr2Score++;
     updateScore();
     resetBall();
     resetPaddle();
     pauseGame();  
-
-}
+  }
 
   ball.style.left = ballX + "px";
   ball.style.top = ballY + "px";
 }
+
+function increaseBallSpeed() {
+  if (Math.abs(ballSpeedX) < maxBallSpeed) {
+    ballSpeedX *= 1.1; // Increase X speed by 10%
+  }
+  if (Math.abs(ballSpeedY) < maxBallSpeed) {
+    ballSpeedY *= 1.1; // Increase Y speed by 10%
+  }
+}
+
+// Ball reset function
+function resetBall(){
+  ballY = gameHeight / 2 - ball.clientHeight / 2;
+  ballX = gameWidth / 2 - ball.clientWidth / 2;
+  // Randomize starting direction with initial speed
+  ballSpeedX = (Math.random() >= 0.5 ? 2 : -2) * 1.5;
+  ballSpeedY = (Math.random() >= 0.5 ? 2 : -2) * 1.5;
+}
+
 function resetPaddle(){
-    paddle1Y = 150;
-    paddle2Y = 150;
+    paddle1Y = 255;
+    paddle2Y = 255;
     paddle1.style.top = paddle1Y + "px";
     paddle2.style.top = paddle2Y + "px";
 }
@@ -168,14 +186,12 @@ function updateScore() {
 }
 
 
-function resetBall(){
-    ballY = gameHeight / 2 - ball.clientHeight /2;
-    ballX = gameWidth / 2 - ball.clientWidth /2;
-    ballSpeedX = Math.random() >= 0.5 ? 2 : -2;
-    ballSpeedY = Math.random() >= 0.5 ? 2 : -2;
-}
-
 function pauseGame(){
     gameRunning =false;
     document.addEventListener('keydown',startGame);
 }
+
+
+
+
+
