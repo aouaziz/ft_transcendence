@@ -1,4 +1,5 @@
 // Game events
+window.location.href = `/game.html?game_id=${data.id}`;
 
 document.addEventListener("keydown", startGame);
 document.addEventListener("keydown", handleKeyDown);

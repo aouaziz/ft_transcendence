@@ -1,7 +1,7 @@
 from django.urls import path
-from . import views
+from .views import create_game, get_game_state 
 
 urlpatterns = [
-    path('create-game/', views.create_game, name='create_game'),
-    path('get-game/<int:pk>/', views.get_game_state, name='get_game_state'),
+    path('api/create_game/', create_game, name='create_game'),
+    path('api/get_game/<int:pk>/', get_game_state, name='get_game_state'),
 ]
