@@ -1,0 +1,172 @@
+
+*{
+    font-family: "Poppins", sans-serif;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  header {
+    position: fixed;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: transparent;
+    padding: 28px 12%;
+    transition: all 0.5s ease;
+    
+  }
+  
+  body {
+    overflow: hidden;
+    background-image: url("../assets/backround.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat; /* Prevent image repetition */
+    background-attachment: fixed;
+  }
+  
+  .logo-image {
+    margin-top: 5px;
+    display: flex;
+    align-items: center;
+    width: 100px;
+  }
+  
+  .navbar {
+    display: flex;
+    margin-top :19px;
+    list-style: none;
+  }
+  
+  .navbar a {
+    text-decoration: none;
+    margin: 0px 30px;
+    color: #ededed;
+    font-size: 1.1rem;
+    font-weight: 500;
+    padding: 5px 0;
+    transition: all 0.5s ease;
+  }
+  .navbar a:hover {
+    color: #f53fa1;
+  }
+  
+  
+  .main {
+    display: flex;
+    align-items: center;
+  }
+  
+  .main a {
+    margin-right: 25px;
+    margin-left: 10px;
+    color: #ededed;
+    transition: all 0.5s ease;
+  }
+  .user {
+    text-decoration: none;
+    margin-top: 0px; 
+    font-size: 1.1rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+  }
+  
+  .user i {
+    font-size: 27px;
+  }
+  
+  .main a:hover {
+    color: #f53fa1;
+  }
+  
+  .container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
+  
+  .Registr{
+    width: 460px;
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(20px);
+    box-shadow: 0 0 10px rgba(0, 0, 0, .2 );
+    color: #ededed;
+    border-radius: 10px;
+    padding: 30px 40px;
+  }
+  
+  .Registr h1 {
+    font-size: 36px;
+    text-align: center;
+    letter-spacing: 2px;
+  }
+  .input-box {
+    position: relative;
+    width: 100%;
+    height: 50px;
+    margin: 30px 0;
+  }
+  .input-box input{
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 40px;
+    font-size: 16px;
+    color: #ededed;
+    padding: 20px 45px 20px 20px;  
+  }
+  
+  .input-box input::placeholder{
+    color: rgba(255, 255, 255, 0.2);
+  }
+  
+  .input-box i {
+    position:absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 20px;
+    color: rgba(255, 255, 255, 0.4);
+  }
+  
+  .Registr .btn{
+    width: 100%;
+    height: 45px;
+    background: #ededed;
+    border: none;
+    outline: none;
+    border-radius: 40px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+    cursor: pointer;
+    font-size: 20px;
+    color: #333;
+    font-weight: 600;
+  }
+  
+  .Registr .btn:hover{
+    background-color: #00ECFF; /* Adjust color as needed */
+      box-shadow: 0 0 40px #f53fa1; /* Add a subtle shadow */
+      transform: scale(1.05); /* Slightly scale up on hover */
+      transition: all 0.3s ease-in-out;
+  }
+  
+  .Registr .btn:active {
+    transform: scale(0.95); /* Slightly scale down */
+    box-shadow: 0 0 20px #f53fa1; /* Subtle shadow effect */
+    transition: transform 0.1s ease, box-shadow 0.1s ease; /* Quick transition for click */
+  }
+  
+  #error{
+    display: flex;
+    justify-content: center;
+    font-size: 14px; 
+    margin: -15px 0 15px;
+    color:  #E57373;
+  }

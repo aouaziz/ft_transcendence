@@ -64,11 +64,30 @@
         <div class="net"></div>
       </div>
       <div class="popup" id="popup">
-        <h2>You Win</h2>
+        <h2 id="popupWin">You Win</h2>
+        <div class="tournament">
+          <div class="round">
+            <div class="match">
+              <div class="player" id="player1">Player 1</div>
+              <div class="player" id="player2">Player 2</div>
+            </div>
+          </div>
+          <div class="round">
+            <div class="match">
+              <div class="player" id="winner1">Winner 1</div>
+              <div class="player" id="player3">Player 3</div>
+            </div>
+          </div>
+          <div class="round">
+            <div class="final">
+              <div class="player" id="champion">Champion</div>
+            </div>
+          </div>
+        </div>
         <p id="popup-text"></p>
         <button class="button" id="popup-btn">OK</button>
       </div>
     </div>
-    <script src="/game/game.js"></script> 
+    <script src="/game/TournamentGame.js"></script> 
   </body>
 </html>

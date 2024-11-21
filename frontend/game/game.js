@@ -1,12 +1,21 @@
-// Game events
-window.location.href = `/game.html?game_id=${data.id}`;
+const player1Name = localStorage.getItem("player1Name")
+const player2Name = localStorage.getItem("player2Name")
+document.getElementById("player1Name").textContent = player1Name 
+document.getElementById("player2Name").textContent = player2Name 
 
+
+
+// Game events
+
+const popupBtn = document.getElementById("popup-btn");
+const popup = document.getElementById("popup");
+popupBtn.addEventListener('click',openpopup)
 document.addEventListener("keydown", startGame);
 document.addEventListener("keydown", handleKeyDown);
 document.addEventListener("keyup", handleKeyUp);
 
 // Game variables
-
+let popupText = document.getElementById("popup-text");
 let gameText = document.getElementById("startText");
 let paddle1 = document.getElementById("paddle1");
 let paddle2 = document.getElementById("paddle2");
@@ -25,17 +34,20 @@ let keysPrassed = {};
 let gameRunning = false;
 let paddle1Speed = 0;
 let paddle2Speed = 0;
-let paddle1Y = 255; //
-let paddle2Y = 255;
-let ballX = 541;
+let paddle1Y = 261; //
+let paddle2Y = 261;
+let ballX = 544.5;
 let ballSpeedX = 4;
-let ballY = 283;
+let ballY = 290.5;
 let ballSpeedY = 4;
 let playr1Score = 0;
 let playr2Score = 0;
 
 
-
+function openpopup(){
+  localStorage.clear();
+  window.location.href = 'index.html'
+}
 // Start Game
 
 function startGame() {
@@ -46,6 +58,16 @@ function startGame() {
 }
 
 function gameLoop() {
+    if (playr1Score === 5) {
+      popupText.textContent = "Congratulations " + player1Name + ", you won the match!";
+      popup.classList.add("open-popup");
+      gameRunning = false; // Stop the game loop
+    }
+    if (playr2Score === 5) {
+      popupText.textContent = "Congratulations " + player2Name + ", you won the match!";
+      popup.classList.add("open-popup");
+      gameRunning = false; // Stop the game loop
+    }
     if(gameRunning){
         updatePaddle1();
         updatePaddle2();
@@ -56,12 +78,10 @@ function gameLoop() {
 
 function handleKeyDown(e) {
   keysPrassed[e.key] = true;
-  console.log(keysPrassed);
 }
 
 function handleKeyUp(e) {
   keysPrassed[e.key] = false;
-  console.log(keysPrassed);
 }
 
 function updatePaddle1() {
@@ -174,8 +194,8 @@ function resetBall(){
 }
 
 function resetPaddle(){
-    paddle1Y = 255;
-    paddle2Y = 255;
+    paddle1Y = 261;
+    paddle2Y = 261;
     paddle1.style.top = paddle1Y + "px";
     paddle2.style.top = paddle2Y + "px";
 }
@@ -191,8 +211,3 @@ function pauseGame(){
     gameRunning =false;
     document.addEventListener('keydown',startGame);
 }
-
-
-
-
-
