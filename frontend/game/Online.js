@@ -3,53 +3,91 @@ const RoomCode = document.getElementById("RoomCode");
 const btn = document.getElementById("btn");
 const errorSpan = document.getElementById("error");
 const input = document.getElementById("textBox");
+const button = document.getElementById("dropdown-btn");
+const list = document.getElementById("dropdown-list");
+const items = document.querySelectorAll(".dropdown-item");
+let chooseitems = false;
 
-async function validatePlayerNames() {  // Make the function async
+function validatePlayerNames() {  
   const Name = Username.value;
+  const Code = RoomCode.value;
+
+  // Check if username or room code is empty
   if (!Name) {
-    errorSpan.textContent = "Player names cannot be empty.";
+    errorSpan.textContent = "Please enter a valid username.";
+    Username.focus(); // Focus on the username input
     return false;
   }
 
+  // Check for valid characters in username and room code
   if (!/^[a-zA-Z]+$/.test(Name)) {
-    errorSpan.textContent = "Player names must contain only alphabetic characters.";
+    errorSpan.textContent = "Username must contain only alphabetic characters.";
+    Username.focus(); // Focus on the username input
     return false;
   }
+
+  // Check if a dropdown option has been selected
+  if (!chooseitems) {
+    errorSpan.textContent = "Please choose an option (Join Room or Create Room).";
+    return false;
+  }
+
+  // Check if room code is empty
+  if (!Code) {
+    errorSpan.textContent = "Please enter a valid room code.";
+    RoomCode.focus(); // Focus on the room code input
+    return false;
+  }
+
+
+  if (!/^[a-zA-Z]+$/.test(Code)) {
+    errorSpan.textContent = "Room code must contain only alphabetic characters (A-Z).";
+    RoomCode.focus(); // Focus on the room code input
+    return false;
+  }
+
+
+  // Clear the error and proceed
   errorSpan.textContent = "";
-  window.location.href = "game.html"
+  window.location.href = "game.html"; // Redirect to game page
+  return true;
 }
 
-btn.addEventListener('click', validatePlayerNames);
+// Attach the validation function to the button
+btn.addEventListener("click", validatePlayerNames);
 
 function initDropdown() {
-  const button = document.getElementById("dropdown-btn");
-  const list = document.getElementById("dropdown-list");
-  const items = document.querySelectorAll(".dropdown-item");
-
   // Toggle dropdown visibility
   function toggleDropdown(event) {
-    event.preventDefault(); // Prevent default behavior
+    event.preventDefault();
     const isVisible = list.classList.contains("visible");
-    closeAllDropdowns(); // Close other dropdowns
+    closeAllDropdowns();
     if (!isVisible) {
       list.classList.add("visible");
-      button.classList.add("open"); // Add class for styling
+      button.classList.add("open");
     }
   }
 
   // Close dropdown
   function closeDropdown() {
     list.classList.remove("visible");
-    button.classList.remove("open"); // Remove open class
+    button.classList.remove("open");
   }
 
   // Handle item selection
   function selectItem(event) {
-    event.preventDefault(); // Prevent default behavior
+    event.preventDefault();
     const selectedItem = event.target;
-    button.textContent = selectedItem.textContent; // Update button text
-    button.dataset.value = selectedItem.dataset.value; // Set selected value
-    closeDropdown(); // Close dropdown after selection
+    chooseitems = true;
+    button.textContent = selectedItem.textContent;
+    button.dataset.value = selectedItem.dataset.value;
+
+    // Update placeholder text based on dropdown choice
+    RoomCode.placeholder = button.dataset.value === "1" 
+      ? "Enter Room Code" 
+      : "Create Room Code";
+    
+    closeDropdown();
   }
 
   // Close all dropdowns
@@ -63,10 +101,9 @@ function initDropdown() {
   }
 
   // Event listeners
-  button.addEventListener("click", toggleDropdown); // Toggle dropdown on button click
-  items.forEach((item) => item.addEventListener("click", selectItem)); // Add event listeners to each dropdown item
+  button.addEventListener("click", toggleDropdown);
+  items.forEach((item) => item.addEventListener("click", selectItem));
 
-  // Close dropdown when clicking outside
   document.addEventListener("click", (event) => {
     if (!button.contains(event.target) && !list.contains(event.target)) {
       closeDropdown();
@@ -78,4 +115,3 @@ function initDropdown() {
 document.addEventListener("DOMContentLoaded", () => {
   initDropdown();
 });
-
