@@ -19,8 +19,8 @@ let popupText = document.getElementById("popup-text");
 let gameText = document.getElementById("startText");
 let paddle1 = document.getElementById("paddle1");
 let paddle2 = document.getElementById("paddle2");
-let payer1 = document.getElementById("player1Score");
-let payer2 = document.getElementById("player2Score");
+let player1 = document.getElementById("player1Score");
+let player2 = document.getElementById("player2Score");
 
 const accelerationSpeed = 1;
 const maxBallSpeed = 10; 
@@ -202,8 +202,8 @@ function resetPaddle(){
 
 
 function updateScore() {
-  payer1.textContent = playr1Score;
-  payer2.textContent = playr2Score;
+  player1.textContent = playr1Score;
+  player2.textContent = playr2Score;
 }
 
 

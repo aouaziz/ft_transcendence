@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+
+
 class Room(models.Model):
     room_code = models.CharField(max_length=6, unique=True)
     creator = models.ForeignKey(User, on_delete=models.CASCADE)

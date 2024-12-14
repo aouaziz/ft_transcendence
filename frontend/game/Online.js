@@ -1,117 +1,66 @@
 const Username = document.getElementById("Username");
-const RoomCode = document.getElementById("RoomCode");
 const btn = document.getElementById("btn");
 const errorSpan = document.getElementById("error");
-const input = document.getElementById("textBox");
-const button = document.getElementById("dropdown-btn");
-const list = document.getElementById("dropdown-list");
-const items = document.querySelectorAll(".dropdown-item");
-let chooseitems = false;
 
-function validatePlayerNames() {  
-  const Name = Username.value;
-  const Code = RoomCode.value;
+function validatePlayerNames() {
+  const Name = Username.value.trim(); // Trim whitespace from input
 
-  // Check if username or room code is empty
+  // Check for empty input
   if (!Name) {
-    errorSpan.textContent = "Please enter a valid username.";
-    Username.focus(); // Focus on the username input
+    showError("Please enter a valid username.");
     return false;
   }
 
-  // Check for valid characters in username and room code
+  // Check for invalid characters
   if (!/^[a-zA-Z]+$/.test(Name)) {
-    errorSpan.textContent = "Username must contain only alphabetic characters.";
-    Username.focus(); // Focus on the username input
+    showError("Username must contain only alphabetic characters.");
     return false;
   }
 
-  // Check if a dropdown option has been selected
-  if (!chooseitems) {
-    errorSpan.textContent = "Please choose an option (Join Room or Create Room).";
-    return false;
-  }
-
-  // Check if room code is empty
-  if (!Code) {
-    errorSpan.textContent = "Please enter a valid room code.";
-    RoomCode.focus(); // Focus on the room code input
-    return false;
-  }
-
-
-  if (!/^[a-zA-Z]+$/.test(Code)) {
-    errorSpan.textContent = "Room code must contain only alphabetic characters (A-Z).";
-    RoomCode.focus(); // Focus on the room code input
-    return false;
-  }
-
-
-  // Clear the error and proceed
-  errorSpan.textContent = "";
-  window.location.href = "game.html"; // Redirect to game page
+  // Clear error message if validation passes
+  clearError();
+  api(Name);
   return true;
 }
 
-// Attach the validation function to the button
-btn.addEventListener("click", validatePlayerNames);
-
-function initDropdown() {
-  // Toggle dropdown visibility
-  function toggleDropdown(event) {
-    event.preventDefault();
-    const isVisible = list.classList.contains("visible");
-    closeAllDropdowns();
-    if (!isVisible) {
-      list.classList.add("visible");
-      button.classList.add("open");
-    }
-  }
-
-  // Close dropdown
-  function closeDropdown() {
-    list.classList.remove("visible");
-    button.classList.remove("open");
-  }
-
-  // Handle item selection
-  function selectItem(event) {
-    event.preventDefault();
-    const selectedItem = event.target;
-    chooseitems = true;
-    button.textContent = selectedItem.textContent;
-    button.dataset.value = selectedItem.dataset.value;
-
-    // Update placeholder text based on dropdown choice
-    RoomCode.placeholder = button.dataset.value === "1" 
-      ? "Enter Room Code" 
-      : "Create Room Code";
-    
-    closeDropdown();
-  }
-
-  // Close all dropdowns
-  function closeAllDropdowns() {
-    document.querySelectorAll(".dropdown-list").forEach((dropdown) => {
-      dropdown.classList.remove("visible");
-    });
-    document.querySelectorAll(".dropdown-btn").forEach((btn) => {
-      btn.classList.remove("open");
-    });
-  }
-
-  // Event listeners
-  button.addEventListener("click", toggleDropdown);
-  items.forEach((item) => item.addEventListener("click", selectItem));
-
-  document.addEventListener("click", (event) => {
-    if (!button.contains(event.target) && !list.contains(event.target)) {
-      closeDropdown();
-    }
+async function api(username) {
+  const request = new Request("http://127.0.0.1:8000/matchmaking/", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ username }),
   });
+
+  try {
+    const response = await fetch(request);
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    console.log("Server response:", data);
+
+    const room_code = data.room_code; // room_code is now available at the top level
+    if (!room_code) {
+      throw new Error("Room code is undefined in the response");
+    }
+
+    window.location.href = `OnlineGame.html?room_code=${encodeURIComponent(room_code)}&username=${encodeURIComponent(username)}`;
+  } catch (error) {
+    console.error("Error occurred:", error.message);
+  }
 }
 
-// Initialize the dropdown
-document.addEventListener("DOMContentLoaded", () => {
-  initDropdown();
-});
+function showError(message) {
+  errorSpan.textContent = message;
+  errorSpan.style.display = "block";
+}
+
+function clearError() {
+  errorSpan.textContent = "";
+  errorSpan.style.display = "none";
+}
+
+// Attach event listener to the button
+btn.addEventListener("click", validatePlayerNames);
