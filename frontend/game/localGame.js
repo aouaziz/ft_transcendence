@@ -4,7 +4,6 @@ document.getElementById("player1Name").textContent = player1Name
 document.getElementById("player2Name").textContent = player2Name 
 
 
-
 // Game events
 
 const popupBtn = document.getElementById("popup-btn");
@@ -43,6 +42,10 @@ let ballSpeedY = 4;
 let playr1Score = 0;
 let playr2Score = 0;
 
+console.log("ball_Height : " + ball.clientHeight)
+console.log("paddle_Width  : " +  paddle1.clientWidth )
+console.log("ball_Width : " +  ball.clientWidth)
+console.log("paddle_Height  : " +  paddle1.clientHeight )
 
 function openpopup(){
   localStorage.clear();
@@ -93,7 +96,7 @@ function updatePaddle1() {
     if (paddle1Speed > 0) {
       paddle1Speed = Math.max(paddle1Speed - accelerationSpeed, 0);
     }
-    if (paddle1Speed < 0) {
+    else if (paddle1Speed < 0) {
       paddle1Speed = Math.min(paddle1Speed + accelerationSpeed, 0);
     }
   }
@@ -115,7 +118,7 @@ function updatePaddle2() {
     if (paddle2Speed > 0) {
       paddle2Speed = Math.max(paddle2Speed - accelerationSpeed, 0);
     }
-    if (paddle2Speed < 0) {
+    else if (paddle2Speed < 0) {
       paddle2Speed = Math.min(paddle2Speed + accelerationSpeed, 0);
     }
   }
@@ -129,24 +132,21 @@ function updatePaddle2() {
   paddle2.style.top = paddle2Y + "px";
 }
 function updateBall() {
-  ballX += ballSpeedX;
-  ballY += ballSpeedY;
-
+  
   // Top and bottom wall collision
   if (ballY >= gameHeight - ball.clientHeight || ballY <= 0) {
     ballSpeedY = -ballSpeedY;
   }
-
   // Paddle1 collision
   if (
-    ballX <= paddle1.clientWidth &&
+    ballX <=  paddle1.clientWidth + ball.clientWidth &&
     ballY >= paddle1Y &&
     ballY <= paddle1Y + paddle1.clientHeight
   ) {
     ballSpeedX = -ballSpeedX;
     increaseBallSpeed(); // Increase speed on paddle hit
   }
-
+  
   // Paddle2 collision
   if (
     ballX >= gameWidth - paddle2.clientWidth - ball.clientWidth &&
@@ -156,6 +156,9 @@ function updateBall() {
     ballSpeedX = -ballSpeedX;
     increaseBallSpeed(); // Increase speed on paddle hit
   }
+  
+  ballX += ballSpeedX;
+  ballY += ballSpeedY;
 
   if (ballX <= 0) {
     playr1Score++;

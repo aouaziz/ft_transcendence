@@ -23,7 +23,7 @@ async function validatePlayerNames() {  // Make the function async
   localStorage.setItem("player1Name",player1Name)
   localStorage.setItem("player2Name",player2Name)
   localStorage.setItem("Tournament","off")
-  window.location.href = "game.html"
+  window.location.href = "localGame.html"
 }
 
 btn.addEventListener('click', validatePlayerNames);
