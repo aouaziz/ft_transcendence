@@ -14,6 +14,8 @@ class Game(models.Model):
     player1 = models.ForeignKey(User, related_name='player1', on_delete=models.CASCADE,null=True)
     player2 = models.ForeignKey(User, related_name='player2', on_delete=models.CASCADE,null=True, blank=True)
     winner = models.ForeignKey(User, related_name='winner', on_delete=models.CASCADE,null=True, blank=True)
+    timestamp = models.DateTimeField(auto_now_add=True)  # Add this line
+
     def __str__(self):
         return f"Game {self.room.room_code} - Player 1: {self.player1}, Player 2: {self.player2}"
 

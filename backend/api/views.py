@@ -6,15 +6,13 @@ from .models import Room, Game, User  # Adjust based on your models
 from .serializers import RoomSerializer, GameSerializer
 import random
 import string
+from django.db.models import Q
 
 
 
 @api_view(['GET', 'POST'])
 def matchmaking(request):
     if request.method == 'GET':
-        Room.objects.all().delete()
-        Game.objects.all().delete()
-        User.objects.all().delete()
         rooms = Room.objects.all()
         room_serializer = RoomSerializer(rooms, many=True)
         games = Game.objects.all()
@@ -28,7 +26,18 @@ def matchmaking(request):
 
         username = data['username']
         user, _ = User.objects.get_or_create(username=username)
-
+        # Check if the user is already in an ongoing game (via the room's status)
+        ongoing_game = Game.objects.filter(
+        (Q(player1=user) | Q(player2=user)) & Q(room__status='STARTED')
+        ).first()
+        if ongoing_game:
+            return Response(
+                {
+                    "error": "User is already in an unfinished game",
+                    "room_code": ongoing_game.room.room_code,
+                },
+                status=status.HTTP_400_BAD_REQUEST,
+            )
         # Check for an available room
         available_room = Room.objects.filter(status='WAITING').first()
         if available_room:

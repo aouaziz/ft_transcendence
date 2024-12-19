@@ -1,216 +1,177 @@
-const player1Name = localStorage.getItem("player1Name")
-const player2Name = localStorage.getItem("player2Name")
-document.getElementById("player1Name").textContent = player1Name 
-document.getElementById("player2Name").textContent = player2Name 
-
-
-// Game events
-
+// Extract roomCode and username from URL parameters
+const urlParams = new URLSearchParams(window.location.search);
+const roomCode = urlParams.get('room_code');
+const username = urlParams.get('username');
 const popupBtn = document.getElementById("popup-btn");
 const popup = document.getElementById("popup");
+const popupText = document.getElementById("popup-text");
+const popupWin = document.getElementById("popup-win");
+const startText = document.getElementById("startText");
 popupBtn.addEventListener('click',openpopup)
-document.addEventListener("keydown", startGame);
-document.addEventListener("keydown", handleKeyDown);
-document.addEventListener("keyup", handleKeyUp);
-
-// Game variables
-let popupText = document.getElementById("popup-text");
-let gameText = document.getElementById("startText");
-let paddle1 = document.getElementById("paddle1");
-let paddle2 = document.getElementById("paddle2");
-let player1 = document.getElementById("player1Score");
-let player2 = document.getElementById("player2Score");
-
-const accelerationSpeed = 1;
-const maxBallSpeed = 10; 
-const maxSpeed = 5;
-const gameHeight = 600;
-const gameWidth = 1100;
-const ball = document.getElementById("ball");
 
 
-let keysPrassed = {};
-let gameRunning = false;
-let paddle1Speed = 0;
-let paddle2Speed = 0;
-let paddle1Y = 261; //
-let paddle2Y = 261;
-let ballX = 544.5;
-let ballSpeedX = 4;
-let ballY = 290.5;
-let ballSpeedY = 4;
-let playr1Score = 0;
-let playr2Score = 0;
+let player1Name = null;
+let player2Name = null;
+let player = null;
+let gameStarted = false;
 
-console.log("ball_Height : " + ball.clientHeight)
-console.log("paddle_Width  : " +  paddle1.clientWidth )
-console.log("ball_Width : " +  ball.clientWidth)
-console.log("paddle_Height  : " +  paddle1.clientHeight )
+const webSocketProtocol = window.location.protocol === 'https:' ? 'wss' : 'ws';
+const wsEndpoint = `${webSocketProtocol}://127.0.0.1:8000/ws/game/${roomCode}/`;
+const ws = new WebSocket(wsEndpoint);
 
+console.log("WebSocket endpoint:", wsEndpoint);
+
+// Game elements
+const paddle1 = document.getElementById("paddle1");
+const paddle2 = document.getElementById("paddle2");
+const player1Score = document.getElementById("player1Score");
+const player2Score = document.getElementById("player2Score");
+const ball = document.getElementsByClassName("ball");
+
+
+
+
+function start_game() {
+    const gameText = document.getElementById("startText");
+    const playersname = document.getElementsByClassName("username");
+    const paddles = document.getElementsByClassName("paddle");
+    const net = document.getElementsByClassName("net");
+    const score = document.getElementsByClassName("score");
+
+    // Hide the start text and make game elements visible
+    startText.style.display = "none";
+    for (const el of [...playersname, ...paddles, ...ball, ...net, ...score]) {
+        el.style.opacity = "100%";
+    }
+
+    document.getElementById("player1Name").textContent = player1Name;
+    document.getElementById("player2Name").textContent = player2Name;
+
+    // Assign player role
+    player = player1Name === username ? "player1" : "player2";
+    console.log(`Player username: ${username} assigned role: ${player}`);
+
+    gameStarted = true;
+}
+
+// WebSocket setup
+function setupWebSocket(ws) {
+    ws.onopen = function () {
+        console.log("WebSocket connection opened.");
+    };
+
+    ws.onclose = function () {
+        let message ="WebSocket connection closed." 
+        game_message(message);
+        console.log("WebSocket connection closed.");
+        gameStarted = false;
+        // window.location.href = "index.html"; // Optional: Redirect on disconnect
+    };
+
+    ws.onerror = function (event) {
+       try{
+        const data = JSON.parse(event.data)
+        console.error("WebSocket error:", data.message);
+        popupText.style.color = "#E57373"
+        game_message(data.message);
+    } catch (e) {
+        console.error("Error parsing server message:", e, event.data);
+    }
+        // window.location.href = "index.html"; // Optional: Redirect on error
+    };
+
+    ws.onmessage = function (event) {
+        try {
+            const data = JSON.parse(event.data);
+            if (data.message === "start_game") {
+                player1Name = data.player1;
+                player2Name = data.player2;
+                start_game();
+            } else if (data.message === "game_update") {
+                game_update(data.payload);
+            } else if (data.message === "game_over") {
+                 player1Score.textContent = data.payload.score1;
+                 player2Score.textContent =  data.payload.score2;
+                if(data.payload.winner == username)
+                    popupWin.textContent = "You Won"
+                else
+                    popupWin.textContent = "You Lost"
+                 game_message(data.payload.message);
+            } else if (data.type === "error") {
+                game_message(data.message);
+            }
+            else if(data.type === "player_move"){
+                if (player === "player2"){
+                     paddle1.style.top = data.paddle1_y + "px";
+                }
+                else{
+                   
+                }
+            }
+        } catch (e) {
+            console.error("Error parsing server message:", e, event.data);
+        }
+    };
+}
+
+// Sends the player's move to the server
+function sendMove(direction) {
+    if (!gameStarted) {
+        return;
+    }
+
+    const message = {
+        action: "move",
+        direction: direction,
+        player: player,
+    };
+    ws.send(JSON.stringify(message));
+}
+// Handles player controls
+window.addEventListener("keydown", (event) => {
+    if (player === "player1" && (event.key === "w" || event.key === "s")) {
+        const direction = event.key === "w" ? "up" : "down";
+        sendMove(direction);
+    } else if (player === "player2" && (event.key === "ArrowUp" || event.key === "ArrowDown")) {
+        const direction = event.key === "ArrowUp" ? "up" : "down";
+        sendMove(direction);
+    }
+});
+
+window.addEventListener("keyup", (event)=>{
+    sendMove('stop');
+});
+
+
+// Updates the game state (positions, scores, etc.)
+function game_update(data) {
+
+    // Update paddles
+    paddle1.style.top = data.paddle1_y + "px";
+    paddle2.style.top = data.paddle2_y + "px";
+
+    // Update scores
+    player1Score.textContent = data.score1;
+    player2Score.textContent = data.score2;
+
+    // Update ball position
+    const ballElement = ball[0];
+    if (ballElement) {
+        ballElement.style.left = data.ball_x + "px";
+        ballElement.style.top = data.ball_y + "px";
+    }
+}
+
+// Handles game over messages
+function game_message(message) {
+    startText.style.opacity = "0%";
+    popupText.textContent = message;
+    popup.classList.add("open-popup");
+    gameStarted = false;
+    player = null;
+}
 function openpopup(){
-  localStorage.clear();
-  window.location.href = 'index.html'
-}
-// Start Game
-
-function startGame() {
-  gameRunning = true;
-  gameText.style.display = "none";
-  gameLoop();
-  document.removeEventListener("keydown", startGame);
-}
-
-function gameLoop() {
-    if (playr1Score === 5) {
-      popupText.textContent = "Congratulations " + player1Name + ", you won the match!";
-      popup.classList.add("open-popup");
-      gameRunning = false; // Stop the game loop
-    }
-    if (playr2Score === 5) {
-      popupText.textContent = "Congratulations " + player2Name + ", you won the match!";
-      popup.classList.add("open-popup");
-      gameRunning = false; // Stop the game loop
-    }
-    if(gameRunning){
-        updatePaddle1();
-        updatePaddle2();
-        updateBall();
-        setTimeout(gameLoop, 8);
-    }
-}
-
-function handleKeyDown(e) {
-  keysPrassed[e.key] = true;
-}
-
-function handleKeyUp(e) {
-  keysPrassed[e.key] = false;
-}
-
-function updatePaddle1() {
-  if (keysPrassed["w"]) {
-    paddle1Speed = Math.max(paddle1Speed - accelerationSpeed, -maxSpeed);
-  } else if (keysPrassed["s"]) {
-    paddle1Speed = Math.min(paddle1Speed + accelerationSpeed, maxSpeed);
-  } else {
-    if (paddle1Speed > 0) {
-      paddle1Speed = Math.max(paddle1Speed - accelerationSpeed, 0);
-    }
-    else if (paddle1Speed < 0) {
-      paddle1Speed = Math.min(paddle1Speed + accelerationSpeed, 0);
-    }
+    localStorage.clear();
+    window.location.href = 'index.html'
   }
-
-  paddle1Y += paddle1Speed;
-
-  if (paddle1Y < 0) paddle1Y = 0;
-  else if (paddle1Y > gameHeight - paddle1.clientHeight)
-    paddle1Y = gameHeight - paddle1.clientHeight;
-
-  paddle1.style.top = paddle1Y + "px";
-}
-function updatePaddle2() {
-  if (keysPrassed["ArrowUp"]) {
-    paddle2Speed = Math.max(paddle2Speed - accelerationSpeed, -maxSpeed);
-  } else if (keysPrassed["ArrowDown"]) {
-    paddle2Speed = Math.min(paddle2Speed + accelerationSpeed, maxSpeed);
-  } else {
-    if (paddle2Speed > 0) {
-      paddle2Speed = Math.max(paddle2Speed - accelerationSpeed, 0);
-    }
-    else if (paddle2Speed < 0) {
-      paddle2Speed = Math.min(paddle2Speed + accelerationSpeed, 0);
-    }
-  }
-
-  paddle2Y += paddle2Speed;
-
-  if (paddle2Y < 0) paddle2Y = 0;
-  else if (paddle2Y > gameHeight - paddle2.clientHeight)
-    paddle2Y = gameHeight - paddle2.clientHeight;
-
-  paddle2.style.top = paddle2Y + "px";
-}
-function updateBall() {
-  
-  // Top and bottom wall collision
-  if (ballY >= gameHeight - ball.clientHeight || ballY <= 0) {
-    ballSpeedY = -ballSpeedY;
-  }
-  // Paddle1 collision
-  if (
-    ballX <=  paddle1.clientWidth + ball.clientWidth &&
-    ballY >= paddle1Y &&
-    ballY <= paddle1Y + paddle1.clientHeight
-  ) {
-    ballSpeedX = -ballSpeedX;
-    increaseBallSpeed(); // Increase speed on paddle hit
-  }
-  
-  // Paddle2 collision
-  if (
-    ballX >= gameWidth - paddle2.clientWidth - ball.clientWidth &&
-    ballY >= paddle2Y &&
-    ballY <= paddle2Y + paddle2.clientHeight
-  ) {
-    ballSpeedX = -ballSpeedX;
-    increaseBallSpeed(); // Increase speed on paddle hit
-  }
-  
-  ballX += ballSpeedX;
-  ballY += ballSpeedY;
-
-  if (ballX <= 0) {
-    playr1Score++;
-    updateScore();
-    resetBall();
-    resetPaddle();
-    pauseGame();
-  } else if (ballX >= gameWidth - ball.clientWidth) {
-    playr2Score++;
-    updateScore();
-    resetBall();
-    resetPaddle();
-    pauseGame();  
-  }
-
-  ball.style.left = ballX + "px";
-  ball.style.top = ballY + "px";
-}
-
-function increaseBallSpeed() {
-  if (Math.abs(ballSpeedX) < maxBallSpeed) {
-    ballSpeedX *= 1.1; // Increase X speed by 10%
-  }
-  if (Math.abs(ballSpeedY) < maxBallSpeed) {
-    ballSpeedY *= 1.1; // Increase Y speed by 10%
-  }
-}
-
-// Ball reset function
-function resetBall(){
-  ballY = gameHeight / 2 - ball.clientHeight / 2;
-  ballX = gameWidth / 2 - ball.clientWidth / 2;
-  // Randomize starting direction with initial speed
-  ballSpeedX = (Math.random() >= 0.5 ? 2 : -2) * 1.5;
-  ballSpeedY = (Math.random() >= 0.5 ? 2 : -2) * 1.5;
-}
-
-function resetPaddle(){
-    paddle1Y = 261;
-    paddle2Y = 261;
-    paddle1.style.top = paddle1Y + "px";
-    paddle2.style.top = paddle2Y + "px";
-}
-
-
-function updateScore() {
-  player1.textContent = playr1Score;
-  player2.textContent = playr2Score;
-}
-
-
-function pauseGame(){
-    gameRunning =false;
-    document.addEventListener('keydown',startGame);
-}
+setupWebSocket(ws);

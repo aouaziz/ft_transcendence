@@ -13,13 +13,15 @@ header {
     
   }
   
-  body {
-    overflow: hidden;
-    background-image: url("../assets/backround.png");
-    background-size: 100% 100%;
-    background-repeat: no-repeat; /* Prevent image repetition */
-    background-attachment: fixed;
-  }
+body {
+
+  overflow: hidden;
+  background-image: url("../assets/backround.png");
+  background-size: cover; /* Ensures the image covers the entire background */
+  background-position: center center; /* Centers the background image */
+  background-repeat: no-repeat; /* Prevents image repetition */
+  background-attachment: fixed; /* Keeps the background image fixed during scrolling */
+}
   
   .logo-image {
     margin-top: 5px;
@@ -67,6 +69,11 @@ header {
     display: flex;
     align-items: center;
   }
+
+  .bx-menu{
+	
+	 display: none; 
+  }
   
   .user i {
     font-size: 27px;
@@ -85,27 +92,26 @@ header {
 .btn-group {
   display: flex;
   box-sizing: border-box;
-  justify-content: space-evenly;
+  justify-content: center;
+  gap: 5%;
   flex-direction: column;
-  border-radius: 10px;
-  padding: 30px 40px;
-  margin-left: 300px;
+  margin-left: 30%;
 }
 
 .btn {
-  font-family: 'Roboto', sans-serif;
-  font-size: 20px;
-  font-weight: bold;
-  letter-spacing: 2px;
-  color:#ededed;
-  background-color:rgba(255,255, 255, 0.1);
-  width: 200px;
-  padding: 25px;
-  text-align: center;
-  text-decoration: none;
-  text-decoration: uppercase; 
-  border-radius: 8px;
-  backdrop-filter: blur(10px);
+	font-family: 'Roboto', sans-serif;
+	font-size: 20px;
+	font-weight: bold;
+	letter-spacing: 2px;
+	color:#ededed;
+	background-color:rgba(255,255, 255, 0.1);
+	width: 200px;
+	padding: 20px;
+	text-align: center;
+	text-decoration: none;
+	text-decoration: uppercase; 
+	border-radius: 8px;
+	backdrop-filter: blur(10px);
 }
 
 .btn:hover {
@@ -116,21 +122,22 @@ header {
   }
 
 .pong {
-  box-sizing: border-box;
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
+	box-sizing: border-box;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 .field {
-	margin: auto auto;
 	width: 400px;
 	height: 230px;
 	position: relative;
-	border-width: 3px;
-	border-style: solid;
-	border-color:#ededed;
+    border: 3px solid #ededed;
+
 	
+	@media (max-width: 938px){
+		top: 20%;
+	}
 	.net {
 		width: 0;
 		height: 98%;
@@ -140,9 +147,7 @@ header {
 		left: 50%;
 		transform: translateX(-50%);
 		
-		border-width: 3px;
-		border-style: dotted;
-		border-color:#ededed;
+		border: 3px dotted #ededed;;
 	}
 	
 	.ping, .pong {
@@ -303,3 +308,74 @@ header {
 		top: 90%;
 	}
 }
+
+ /* Media query for max-width: 938px */
+ @media (max-width: 1424px) {
+	header{
+		padding: 14px 2%;
+		transition: .4s;
+	}
+
+	.navbar a {
+		padding: 5px 0;
+		margin: 0px 20px;
+	}
+	.container {
+	  flex-direction: column;
+	  align-items: center;
+
+	}
+	.pong {
+	  margin: 10% auto 0 auto;
+		transition: .4s;
+
+	}
+	.btn-group {
+	  margin: 5% auto;
+	   gap: 15px; /* Added gap between buttons */
+	   transition: .4s;
+	
+	}
+
+  }
+  
+  @media (max-width: 1000px) {
+	.bx-menu{
+		display: block;
+	}
+	.navbar{
+		position: absolute;
+		top: 100%;
+		right: -100%;
+		width: 220px;
+		height: 29vh;
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-start;
+		border-radius: 10px;
+		transition: all .50s ease;
+	}
+	.navbar a {
+		display: block;
+		margin: 12px 0;
+		padding: 0px 25px;
+		transition: all .50s ease;
+	}
+	.field {
+	  top: 10%;
+	  width: 350px;
+	  height: 200px;
+	  transition: .4s;
+	}
+	.btn-group {
+	  margin: 6% auto;
+	  transition: .4s;
+	}
+
+  }
+  
+  @media (max-width: 470px) {
+	.field {
+	  display: none;
+	}
+  }

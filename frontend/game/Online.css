@@ -21,11 +21,12 @@
   body {
     overflow: hidden;
     background-image: url("../assets/backround.png");
-    background-size: 100% 100%;
-    background-repeat: no-repeat; /* Prevent image repetition */
-    background-attachment: fixed;
-  }
-  
+    background-size: cover; /* Ensures the image covers the entire background */
+    background-position: center center; /* Centers the background image */
+    background-repeat: no-repeat; /* Prevents image repetition */
+    background-attachment: fixed; /* Keeps the background image fixed during scrolling */
+    }
+    
   .logo-image {
     margin-top: 5px;
     display: flex;

@@ -1,3 +1,13 @@
+let menu = document.getElementsByClassName('bx-menu')
+let navbar = document.getElementsByClassName('navbar')
+
+
+menu.addEventListener('click', {
+  navbar.style.right = 2%
+});
+
+
+
 const player1Username = document.getElementById("player1Username");
 const player2Username = document.getElementById("player2Username");
 const btn = document.getElementById("btn");
