@@ -1,0 +1,40 @@
+<!-- game/chat.html -->
+<div id="error-message-container" style="color: red; display: none;">
+    <p id="error-message"></p>
+</div>
+
+<div class="Chat">
+    <ul id="user-list"></ul>
+    <div class="main-container">
+        <div id="user-info">
+            <h2 id="selected-user" style="display: none;"></h2>
+            <h3 id="friend-heading" style="display: none;">Friends:</h3>
+            <ul id="friend-list"></ul>
+        </div>
+
+        <div id="chat-box" style="display: none;">
+            <h3 id="chat-header"></h3>
+            <div id="chat-messages"></div>
+            <div id="chat-input">
+                <input type="text" id="message-input" placeholder="Type a message...">
+                <button id="send-message">Send</button>
+            </div>
+        </div>
+   </div>
+    <div id="profile-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+             <button id="close-modal" class="close-button">X</button>
+            <img id="modal-profile-pic" src="" alt="Profile Picture" style="width: 100px; height: 100px; ">
+            <h2 id="modal-friend-username" ></h2>
+             <h3 id="modal-online-status" ></h3>
+            <div class="button-container">
+                <button id="block-button">Block</button>
+                <button id="invite-button">Invite</button>
+
+
+            </div>
+
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,55 @@
+<!-- Modal HTML -->
+<div id="accountExistsModal" class="modal">
+  <div class="modal-content">
+    <span class="close" id="closeModal">&times;</span>
+    <p id="modalMessage">You already have an account.</p>
+  </div>
+</div>
+
+  
+  <section class="wrapper">
+    <div class="form signup">
+      <header>Sign up</header>
+      <form>
+        <div class="input-container">
+          <i class="bx bx-user icon"></i>
+          <input id="signup-fullname" type="text" placeholder="Enter your full name" maxlength="20">
+        </div>
+        <div class="input-container">
+          <i class="bx bx-envelope icon"></i>
+          <input id="signup-email" type="email" placeholder="Enter your email address ">
+        </div>
+        <div class="input-container">
+          <i class="bx bx-lock-alt icon"></i>
+          <input type="password" id="signup-password" name="password" placeholder="Create a strong password" autocomplete="new-password">
+        </div>
+        <div id="signup-error" class="error"></div>
+        <button id="signup-btn" type="button" class="btn">Signup</button>
+      </form>
+    </div>
+    <div class="form login">
+      <header>Log in</header>
+      <form >
+        <div class="input-container">
+          <i class="bx bx-user icon"></i>
+          <input type="text" id="username" name="username" placeholder="Enter your username">
+        </div>
+        <div class="input-container">
+          <i class="bx bx-lock-alt icon"></i>
+          <input type="password" id="login-password" name="password" placeholder="Enter your password" autocomplete="current-password">
+        </div>
+        <div id="login-error" class="error"></div>
+        <button id="login-btn" type="button" class="btn" >Login</button>
+        <div class="middle-text">
+          <hr>
+          <p class="or-text">Or</p>
+        </div>
+        <div class="social-sign-in">
+          <button id="input-42" type="button" class="btn" >
+            <img src="assets/42.png" alt="42 school logo"> 
+            <p>Sign In with 42</p>
+          </button> 
+        </div>
+      </form>
+    </div>
+  </section>

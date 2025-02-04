@@ -1,0 +1,56 @@
+<div class="Profile">
+  <div class="avatar-holder">
+    <img id="profileImg" src="" alt="Profile Avatar">
+  </div>
+  <div class="name">
+    <h3 id="avatar-name"></h3>
+    <div class="icon">
+      <a id="removeFriend" rel="remove friend"><i class='bx bxs-user-minus'></i></a>
+      <a id="addFriend" rel="add friend"><i class='bx bxs-user-plus'></i></a>
+    </div>
+  </div>
+  <div class="historyAndStatisticsrRow">
+    <div class="match-history">
+      <h4>Match History</h4>
+      <div class="match-blocks">
+      </div>
+    </div>
+    <div class="statistics-section">
+      <h4>Statistics</h4>
+      <div class="statistics-container">
+        <!-- Matches statistic -->
+        <div class="stat-item">
+          <svg viewBox="-100 -100 200 200">
+            <circle id="matches-circle" r="75" pathlength="100" />
+            <text id="matches" dominant-baseline="middle">0</text>
+          </svg>
+          <div class="stat-description-matches">Matches</div>
+        </div>
+        <!-- Wins statistic -->
+        <div class="stat-item">
+          <svg viewBox="-100 -100 200 200">
+            <circle id="wins-circle" r="75" pathlength="100" />
+            <text id="wins" dominant-baseline="middle">0</text>
+          </svg>
+          <div class="stat-description-wins">Wins</div>
+        </div>
+        <!-- Losses statistic -->
+        <div class="stat-item">
+          <svg viewBox="-100 -100 200 200">
+            <circle id="losses-circle" r="75" pathlength="100" />
+            <text id="losses" dominant-baseline="middle">0</text>
+          </svg>
+          <div class="stat-description-losses-circle">Losses</div>
+        </div>
+        <!-- Win rate statistic -->
+        <div class="stat-item">
+          <svg viewBox="-100 -100 200 200">
+            <circle id="winrate-circle" r="75" pathlength="100" />
+            <text id="winrate" dominant-baseline="middle">0%</text>
+          </svg>
+          <div class="stat-description-winrate">Win Rate</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

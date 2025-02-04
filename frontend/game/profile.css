@@ -1,0 +1,473 @@
+@import url('https://fonts.googleapis.com/css?family=Krub:400,700');
+
+*{
+    font-family: "Poppins", sans-serif;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  header {
+    position: fixed;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: transparent;
+    padding: 28px 12%;
+    transition: all 0.5s ease;
+    
+  }
+  
+  body {
+      overflow: hidden;
+      background-image: url("../assets/backround.png");
+      background-size: cover; /* Ensures the image covers the entire background */
+      background-position: center center; /* Centers the background image */
+      background-repeat: no-repeat; /* Prevents image repetition */
+      background-attachment: fixed; /* Keeps the background image fixed during scrolling */
+    }
+    
+    .custom-logo {
+        margin-top: 5px;
+        display: flex;
+        align-items: center;
+        width: 100px;
+    }
+    
+    .custom-navbar {
+    display: flex;
+    list-style: none;
+  }
+  
+  .custom-navbar a {
+      text-decoration: none;
+      margin: 0px 30px;
+      color: #ededed;
+      font-size: 1.1rem;
+      font-weight: 600;
+      padding: 5px 0;
+      transition: all 0.5s ease;
+    }
+    .custom-navbar a:hover {
+        color: #f53fa1;
+    }
+
+/* Position the search bar to the right of the screen */
+.custom-searchBar {
+  right: 0;
+  display: flex;
+  width: 35px;
+  height: 35px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+  border-radius: 35px;
+  justify-content: center;
+  align-items: center;
+  transition: 0.2s ease; /* Smooth animation for width change */
+}
+
+/* Styling for the icon */
+.custom-searchBar i {
+  display: flex;
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 22px; /* Icon size */
+  transition: 0.9s ease; /* Smooth color transition */
+}
+
+/* Hover effect for icon */
+.custom-searchBar i:hover {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* When the search bar is expanded */
+.custom-searchBar.searchActive {
+  width: 180px;
+  padding: 0 10px; /* Add some padding */
+  transition: 0.3s ease; /* Smooth color transition */
+}
+
+/* Input field is hidden initially */
+.custom-searchInput {
+  display: none;
+  flex-grow: 1; /* Takes up remaining space when expanded */
+  padding-left: 4px; /* Space between input and icon */
+}
+
+/* Show input field when search bar is expanded */
+.custom-searchBar.searchActive .custom-searchInput {
+  display: block;
+}
+
+/* Styling for input field */
+.custom-searchInput input {
+  width: 100%;
+  padding: 5px;
+  background: transparent;
+  border: none;
+  color: #ededed;
+  font-size: 12px;
+  outline: none; /* Prevent outline on focus */
+  user-select: none; /* Prevent text selection */
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.Profile {
+    font-family: "Krub", sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center content horizontally */
+    width: 1200px;
+    height: 600px;
+    background: transparent;
+    border: 3px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(20px);
+    color: #ededed;
+    border-radius: 10px;
+    padding: 30px 40px;
+    box-shadow: 0 0 6px rgba(255, 255, 255, 0.2); 
+    
+}
+
+.avatar-holder {
+    position: absolute;
+    top: -65px; 
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid #00ECFF;
+    box-shadow: 0 0 20px #00ECFF ;
+}
+.avatar-holder img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+
+.name {
+    margin-top: 4%;
+    position: relative; /* Relative positioning to align the icons */
+    display: flex;
+    justify-content: center; /* Centers the name */
+    align-items: center; /* Vertically center the items */
+    width: 100%; /* Ensures the name takes up the full width */
+    color: #E9E9E9;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.icon {
+    display: flex;
+    gap: 20px; /* Space between the icons */
+    position: absolute; /* Position icons beside the name */
+    right: 0; /* Align icons to the right side */
+    font-size: 25px;
+    align-items: center; /* Align icons vertically */
+    font-weight: 500;
+
+}
+
+.icon i {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.icon i:hover {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.icon a {
+  /* common styles for both buttons */
+  cursor: pointer;
+  font-size: 24px; /* Adjust size as needed */
+    margin-left: 10px;
+    color: #ffffff;
+}
+
+.icon a#addFriend {
+  display: inline-block; /* default for add friend */
+}
+
+.icon a#removeFriend {
+  display: none; /* default for remove friend */
+}
+
+.historyAndStatisticsrRow {
+  display: flex;
+
+  flex-direction: row; /* Ensure children are side by side */
+  justify-content: space-between; /* Space between the two sections */
+  align-items: flex-start; /* Align items at the top */
+  width: 100%; /* Full width */
+  margin-top: 10%; /* Spacing from the top */
+}
+
+.statistics-section, .match-history {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; /* Align content at the top */
+  width: 48%; /* Each section takes up roughly half the width */
+  background: rgba(255, 255, 255, 0.05);
+  padding: 20px;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+}
+
+.match-history h4, .statistics-section h4 {
+  display: flex;
+  justify-content: center;
+  font-size: 20px;
+  color: #00ECFF;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.match-blocks {
+  display: flex;
+  flex-direction: column;
+  gap: 6px; /* Space between match blocks */
+}
+
+
+
+.statistics-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center; 
+  align-items: center;
+  gap: 30px;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: center; 
+  align-items: center;
+  margin: 10px;
+}
+
+.stat-item svg {
+  width: 80px;
+  height: 80px;
+  margin-bottom: 10px;
+  color: #ededed;
+}
+
+.stat-item circle {
+  fill: transparent;
+  stroke-width: 15px;
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+  transform: rotate(-90deg);
+  stroke: #ededed;
+  animation: draw 1s ease-in forwards;
+}
+
+@keyframes draw {
+  to {
+    stroke-dashoffset: 0; 
+  }
+}
+
+.stat-item text {
+  font-size: 50px;
+  font-weight: bold;
+  line-height: 1;
+  text-anchor: middle;
+  fill: #ededed; 
+  transform: translateY(20);
+  opacity: 60% ;
+   animation: rase 0.8s ease-in forwards;
+}
+
+@keyframes rase {
+  to {
+    transform: translateY(40);
+    opacity: 60%  }
+}
+
+.stat-description {
+  font-size: 18px;
+  opacity: 60% ;
+   animation: fadeIn 1s ease-in forwards;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 60%  }
+}
+
+/* Wins Rate Color */
+#wins-circle {
+  stroke: #00FF00;  /* Green */
+}
+#wins {
+  fill: #00FF00;
+}
+
+/* Win Rate Color */
+#winrate-circle {
+  stroke: #00ECFF;  /* Blue */
+}
+#winrate{
+  fill: #00ECFF;
+}
+/* Matches Color */
+#matches-circle {
+  stroke: #9B59B6;  /* Yellow/Orange */
+}
+#matches{
+  fill: #9B59B6;
+}
+
+/* Losses Color */
+#losses-circle {
+  stroke: #FF073A;  /* Red */
+}
+#losses{
+  fill: #FF073A;
+}
+
+
+.stat-description-winrate{
+  color: #00ECFF;
+}
+
+.stat-description-matches{
+  color: #9B59B6;
+}
+.stat-description-wins{
+  color: #00FF00;
+}
+
+.stat-description-losses-circle{
+  color: #FF073A;
+} 
+
+#winrate-circle  {
+  animation: draws 1s ease-in forwards;
+}
+@keyframes draws {
+  to {
+    stroke-dashoffset: 0; 
+  }
+}
+
+.active a {
+  color: #f53fa1; 
+}
+
+
+
+
+.match-history {
+  max-height: 200px; /* Adjust as needed */
+  overflow-y: auto;
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  padding: 15px;
+}
+
+/* Scrollbar Styling */
+.match-history::-webkit-scrollbar {
+  width: 5px;
+}
+
+.match-history::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.match-history::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: 4px;
+}
+
+.match-history::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.6);
+}
+
+/* Match Blocks */
+.match-block {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 15px;
+  border-radius: 8px;
+  margin-bottom: 6px;
+  position: relative;
+}
+
+/* Glowing Left Border for Wins */
+.match-block.win {
+  background: rgba(0, 255, 0, 0.1); 
+  border-left: 4px solid #00FF00;
+  box-shadow: -4px 0 10px rgba(0, 255, 0, 0.5); 
+}
+
+.match-block.loss {
+  background: rgba(255, 7, 58, 0.1); 
+  border-left: 4px solid #FF073A;
+  box-shadow: -4px 0 10px rgba(255, 7, 58, 0.5); 
+}
+
+.match-block .result {
+  position: absolute;
+  left: 10px;
+  font-size: 14px;
+  font-weight: 700;
+  opacity: 50%;
+}
+
+.match-block .result.Win {
+  color: #00FF00; 
+}
+
+.match-block .result.Loss {
+  color: #FF073A; 
+}
+
+.match-block .players {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+  justify-content: center;
+  margin-left: 12%;
+  font-size: 16px; 
+  font-weight: 600;
+  color: #ededed;
+}
+
+/* Date Styling */
+.match-block .date {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+
+
+
+.no-matches {
+  text-align: center;
+  padding: 20px;
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.6);
+  opacity: 0.8;
+  letter-spacing: 0.5px;
+  animation: fadeIn 1s ease-in forwards;
+}
+
+/* Add to existing animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 0.8; }
+}

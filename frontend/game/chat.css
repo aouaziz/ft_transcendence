@@ -1,0 +1,387 @@
+header {
+    position: fixed;
+    width: 100%;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: transparent;
+    padding: 28px 12%;
+    transition: all 0.5s ease;
+    
+  }
+  
+body {
+  overflow: hidden;
+  background-image: url("../assets/backround.png");
+  background-size: cover; /* Ensures the image covers the entire background */
+  background-position: center center; /* Centers the background image */
+  background-repeat: no-repeat; /* Prevents image repetition */
+  background-attachment: fixed; /* Keeps the background image fixed during scrolling */
+}
+  
+  .custom-logo {
+    margin-top: 5px;
+    display: flex;
+    align-items: center;
+    width: 100px;
+  }
+  
+  .custom-navbar {
+    display: flex;
+    margin-top :19px;
+    list-style: none;
+  }
+  
+  .custom-navbar a {
+    text-decoration: none;
+    margin: 0px 30px;
+    color: #ededed;
+    font-size: 1.1rem;
+    font-weight: 500;
+    padding: 5px 0;
+    transition: all 0.5s ease;
+  }
+  .custom-navbar a:hover {
+    color: #f53fa1;
+  }
+/* Position the search bar to the right of the screen */
+.custom-searchBar {
+    right: 0;
+    display: flex;
+    width: 35px;
+    height: 35px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    border-radius: 35px;
+    justify-content: center;
+    align-items: center;
+    transition: 0.2s ease; /* Smooth animation for width change */
+}
+
+#modal-online-status.online {
+    color: green;  /* Green for online */
+}
+
+#modal-online-status.offline {
+    color: red;  /* Red for offline */
+}
+
+
+
+
+/* Styling for the icon */
+.custom-searchBar i {
+    display: flex;
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 22px; /* Icon size */
+    transition: 0.9s ease; /* Smooth color transition */
+}
+
+/* Hover effect for icon */
+.custom-searchBar i:hover {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* When the search bar is expanded */
+.custom-searchBar.searchActive {
+    width: 180px;
+    padding: 0 10px; /* Add some padding */
+    transition: 0.3s ease; /* Smooth color transition */
+}
+
+/* Input field is hidden initially */
+.custom-searchInput {
+    display: none;
+    flex-grow: 1; /* Takes up remaining space when expanded */
+    padding-left: 4px; /* Space between input and icon */
+}
+
+/* Show input field when search bar is expanded */
+.custom-searchBar.searchActive .custom-searchInput {
+    display: block;
+}
+/* Styling for input field */
+.custom-searchInput input {
+    width: 100%;
+    padding: 5px;
+    background: transparent;
+    border: none;
+    color: #ededed;
+    font-size: 12px;
+    outline: none; /* Prevent outline on focus */
+    user-select: none; /* Prevent text selection */
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+  }
+
+/* Main Container */
+.main-container {
+    display: flex;
+    justify-content: center; /* Center content horizontally */
+    align-items:center; /* Align items at the start to prevent it stretching */
+    gap: 20px;
+    width: 1400px;
+    height: 1000px;
+    padding: 20px;
+}
+
+/* Friend List Styles */
+#friend-list {
+    width: 300px;
+    height: 700px;
+    background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    padding: 20px;
+    border-radius: 10px;
+    border: 2px solid #156a75;
+    box-shadow: 0 0 10px rgba(32, 97, 170, 0.7);
+    overflow-y: auto;
+}
+
+.friend {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    border-bottom: 1px solid #46c2d8;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.friend:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.friend img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 15px;
+    border: 2px solid #2061aa;
+    object-fit: cover;
+}
+
+.friend .name {
+    font-size: 16px;
+    font-family: "Poppins", sans-serif;
+    font-weight: bold;
+    color: rgb(217, 219, 228);
+    margin-right: 10px;
+}
+
+.friend .status {
+    font-size: 14px;
+    color: rgba(217, 219, 228, 0.7);
+}
+
+.friend.selected {
+    background-color: rgba(32, 97, 170, 0.3);
+    border-left: 5px solid #2061aa;
+}
+
+/* Chat Box Styles */
+#chat-box {
+    width: 1000px;
+    height: 700px;
+    background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    padding: 20px;
+    border-radius: 10px;
+    border: 2px solid #2061aa;
+    box-shadow: 0 0 10px rgba(32, 97, 170, 0.7);
+    display: flex;
+    flex-direction: column; /* Use column layout for the chat box */
+}
+
+#chat-header {
+    font-size: 24px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #46c2d8;
+    padding-bottom: 5px;
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: 1px;
+}
+.chat-header-img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 15px;
+    border: 2px solid #2061aa;
+    object-fit: cover;
+}
+
+.friend-username {
+    font-weight: bold;
+    color: rgb(217, 219, 228);
+}
+
+/* Chat Messages Styles */
+#chat-messages {
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto; 
+    margin-bottom: 20px;
+    padding: 10px;
+    gap: 10px;
+    height: calc(100% - 190px); /* Calculate height dynamically */
+
+}
+
+.message {
+    padding: 10px 15px;
+    border-radius: 10px;
+    max-width: 70%;
+    word-wrap: break-word;
+    position: relative;
+}
+
+.sender-message {
+    background-color: #3b6faa;
+    align-self: flex-end;
+    text-align: right;
+}
+
+.receiver-message {
+    background-color: #1e8449;
+    align-self: flex-start;
+    text-align: left;
+}
+
+/* Chat Input Styles */
+#chat-input {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    border: 2px solid #2061aa;
+}
+
+#message-input {
+    flex: 1;
+    padding: 10px;
+    font-size: 16px;
+    font-family: "Poppins", sans-serif;
+    border: none;
+    border-radius: 20px;
+    background-color: transparent;
+    color: #ededed;
+    outline: none;
+    margin-right: 10px;
+}
+
+#send-message {
+    padding: 10px 20px;
+    background-color: #2061aa;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    border-radius: 20px;
+    transition: background-color 0.3s ease;
+}
+
+#send-message:hover {
+    background-color: #1c4d7c;
+}
+
+/* Modal Styles */
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: rgba(0, 0, 0, 0.8);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+}
+
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+    color: white;
+    background: transparent;
+    border: none;
+}
+#modal-profile-pic {
+    border-radius: 50%;
+    border: 2px solid #2061aa;
+    object-fit: cover;
+}
+
+/* Button Container */
+.button-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.button-container button {
+    padding: 10px 20px;
+    background-color: #2061aa;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.button-container button:hover {
+    background-color: #1c4d7c;
+}
+
+.toast {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    display: none;
+    z-index: 1000;
+}
+
+/* Empty State Styles */
+#chat-box.empty {
+    justify-content: center;
+    align-items: center;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 24px;
+    font-family: 'Poppins', sans-serif;
+}
+
+#chat-box.empty #chat-header,
+#chat-box.empty #chat-messages,
+#chat-box.empty #chat-input {
+    display: none;
+}

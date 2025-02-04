@@ -1,7 +1,6 @@
-from django.contrib import admin
-from django.urls import path,include
+from django.urls import path
+from .views import matchmaking
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', include('api.urls')),
+    path('matchmaking/', matchmaking, name='matchmaking'),
 ]

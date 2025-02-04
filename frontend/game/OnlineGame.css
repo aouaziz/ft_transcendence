@@ -23,20 +23,20 @@ header {
     }
     
   
-  .logo-image {
+  .custom-logo {
     margin-top: 5px;
     display: flex;
     align-items: center;
     width: 100px;
   }
   
-  .navbar {
+  .custom-navbar {
     display: flex;
     margin-top :19px;
     list-style: none;
   }
   
-  .navbar a {
+  .custom-navbar a {
     text-decoration: none;
     margin: 0px 30px;
     color: #ededed;
@@ -45,38 +45,68 @@ header {
     padding: 5px 0;
     transition: all 0.5s ease;
   }
-  .navbar a:hover {
+  .custom-navbar a:hover {
     color: #f53fa1;
   }
-  
-  
-  .main {
-    display: flex;
-    align-items: center;
-  }
-  
-  .main a {
-    margin-right: 25px;
-    margin-left: 10px;
-    color: #ededed;
-    transition: all 0.5s ease;
-  }
-  .user {
-    text-decoration: none;
-    margin-top: 0px; 
-    font-size: 1.1rem;
-    font-weight: 500;
-    display: flex;
-    align-items: center;
-  }
-  
-  .user i {
-    font-size: 27px;
-  }
-  
-  .main a:hover {
-    color: #f53fa1;
-  }
+ 
+/* Position the search bar to the right of the screen */
+.custom-searchBar {
+  right: 0;
+  display: flex;
+  width: 35px;
+  height: 35px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+  border-radius: 35px;
+  justify-content: center;
+  align-items: center;
+  transition: 0.2s ease; /* Smooth animation for width change */
+}
+
+/* Styling for the icon */
+.custom-searchBar i {
+  display: flex;
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 22px; /* Icon size */
+  transition: 0.9s ease; /* Smooth color transition */
+}
+
+/* Hover effect for icon */
+.custom-searchBar i:hover {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* When the search bar is expanded */
+.custom-searchBar.searchActive {
+  width: 180px;
+  padding: 0 10px; /* Add some padding */
+  transition: 0.3s ease; /* Smooth color transition */
+}
+
+/* Input field is hidden initially */
+.custom-searchInput {
+  display: none;
+  flex-grow: 1; /* Takes up remaining space when expanded */
+  padding-left: 4px; /* Space between input and icon */
+}
+
+/* Show input field when search bar is expanded */
+.custom-searchBar.searchActive .custom-searchInput {
+  display: block;
+}
+
+/* Styling for input field */
+.custom-searchInput input {
+  width: 100%;
+  padding: 5px;
+  background: transparent;
+  border: none;
+  color: #ededed;
+  font-size: 12px;
+  outline: none; /* Prevent outline on focus */
+  user-select: none; /* Prevent text selection */
+}
   
   .container {
     display: flex;
@@ -92,10 +122,10 @@ header {
     letter-spacing: 1px;
     font-family: "Poppins", sans-serif;
     color: rgba(255, 255, 255, 0.9);
-    top: 15%;
+    top: 20%;
     opacity: 0;
   }
-  .player1Name{
+  .player2Name{
     margin-left: 300px;
   }
   .gameArea {
@@ -154,7 +184,7 @@ header {
   
   .score {
     position: absolute;
-    top :20%;
+    top :28%;
     z-index: 1;
     display: flex;
     width: 60px;
@@ -264,3 +294,14 @@ header {
     box-shadow: 0 0 15px #00ecff;
   }
   
+  .active a {
+    color: #f53fa1; 
+  }
+
+
+
+  @media (max-height: 1100px) {
+    .username {
+      top: 17%;
+    }
+  }

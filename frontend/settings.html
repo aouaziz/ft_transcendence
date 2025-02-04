@@ -1,0 +1,86 @@
+<div id="customModal" class="custom-modal">
+    <div class="custom-modal-content">
+        <p id="customModalMessage"></p>
+        <button id="customModalClose">Close</button>
+    </div>
+</div>
+<div class="settings">
+    <div class="settings-row">
+        <!-- Control Panel (Left Side) -->
+        <div class="settings-control-panel">
+            <div class="user-avatar">
+                <div class="avatar-image-container">
+                    <img id="userProfileImg" src="/assets/default_avatar.jpg" alt="User Avatar" class="avatar-image">
+                </div>
+                <div class="avatar-name-container">
+                    <h3 id="userDisplayName"></h3>
+                </div>
+            </div>
+            <hr>
+            <ul class="settings-menu">
+                <li class="settings-menu-item active" data-section="generalSettings">General</li>
+                <li class="settings-menu-item" data-section="passwordSettings">Password</li>
+            </ul>
+            <div class="logout-button">
+                <i class='bx bx-exit bx-rotate-180' ></i>
+           </div>
+        </div>
+
+        <div class="settings-display">
+            <div id="generalSettings" class="settings-section">
+                <h2>General Settings</h2>
+                <form>
+                    <div class="form-group">
+                        <label for="usernameInput" class="form-title">Username</label>
+                        <input type="text" class="form-input" id="usernameInput" placeholder="Enter New Username" maxlength="15">
+                        <div id="username-error" class="error"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="emailInput" class="form-title">Email</label>
+                        <input type="email" class="form-input" id="emailInput" placeholder="Enter New Email" >
+                        <div id="email-error" class="error"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="profileImageInput" class="form-title">Profile Image</label>
+                        <input type="file" class="form-input" id="profileImageInput" accept="image/*" >
+                        <div id="image-error" class="error"></div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                </form>
+            </div>
+
+            <!-- Password Settings Section -->
+            <div id="passwordSettings" class="settings-section d-none">
+                <h2>Password Settings</h2>
+                <form>
+                    <div class="form-group">
+                        <label for="currentPasswordInput" class="form-title">Current Password</label>
+                        <input type="password" class="form-input" id="currentPasswordInput">
+                        <div id="current-password-error" class="error"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="newPasswordInput" class="form-title">New Password</label>
+                        <input type="password" class="form-input" id="newPasswordInput">
+                         <div id="new-password-error" class="error"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="confirmPasswordInput" class="form-title">Confirm New Password</label>
+                        <input type="password" class="form-input" id="confirmPasswordInput">
+                       <div id="confirm-password-error" class="error"></div>
+                    </div>
+                    <div class="form-group">
+                        <div class="jwt-toggle-container">
+                            <label class="form-title">Enable 2Fa  Authentication</label>
+                            <label class="switch">
+                                <input type="checkbox">
+                                <span class="slider round"></span>
+                            </label>
+                            <div id="2fa-error" class="error"></div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Change Password</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
