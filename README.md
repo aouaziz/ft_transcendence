@@ -1,8 +1,8 @@
 <p align="center">
-    <img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-markdown-open.svg" align="center" width="30%">
+    <img src="/backend/assets/logo.png" align="center" width="30%">
 </p>
 
-<h1 align="center">FT_TRANSCENDENCE</h1>
+<h1 align="center">ft_transcendence</h1>
 
 <p align="center">
     <em><code>❯ A Web-Based Gaming Platform with Real-Time Features</code></em>
@@ -131,14 +131,6 @@ Contributions are welcome! To get started:
 2. Create a new branch (`feature-xyz`).
 3. Commit your changes.
 4. Submit a pull request.
-
-Please read our **Contributing Guidelines** for details.
-
----
-
-## 🎗 License
-
-This project is licensed under the **MIT License** – see the [`LICENSE`](LICENSE) file for details.
 
 ---
 
