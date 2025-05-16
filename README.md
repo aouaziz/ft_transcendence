@@ -67,6 +67,7 @@ ft_transcendence/
 │   └── *.html           # Application pages
 ├── docker-compose.yml    # Docker orchestration setup
 ├── Makefile              # Development shortcuts
+├── env.txt               # env.txt => .env
 └── README.md             # Project documentation
 ```
 
@@ -91,7 +92,8 @@ Before setting up the project, ensure you have the following installed:
 
 2. **Build and start the containers**:
    ```bash
-   docker-compose up --build
+   mv env.txt .env
+   make
    ```
 
 3. **Access the application**:

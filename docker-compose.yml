@@ -20,7 +20,7 @@ services:
             - ./backend/assets:/app/assets
         init: true
     db:
-        image: postgres:13
+        image: postgres
         env_file:
          - .env
         environment:
